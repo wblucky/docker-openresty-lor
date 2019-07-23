@@ -35,6 +35,8 @@ git clone git@git.dev.tencent.com:wblucky/opDocker.git
 
 cd opDocker
 
+mkdir db
+
 # 复制配置文件 如果修改数据库密码下面的 env.lua 里面的配置也要修改
 cp .env.example .env
 cp webapp/lua/app/env.lua.example webapp/lua/app/env.lua
