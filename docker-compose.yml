@@ -1,0 +1,33 @@
+version: '2.2'
+services:
+  web:
+    build: .
+    restart: always
+    ports:
+      - "127.0.0.1:8088:80"
+    volumes:
+      - ./webapp:/var/www
+    command: "sh -c 'openresty -c /var/www/conf/nginx.conf -p /var/www && tail -f /var/www/logs/error.log'"
+    networks:
+      - ornet
+  db:
+    image: mysql:${MYSQL_VERSION}
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./db:/var/lib/mysql
+    networks:
+      - ornet
+  redis:
+    image: redis:${REDIS_VERSION}
+    restart: always
+    networks:
+      - ornet
+networks:
+  ornet:
+    driver: bridge
