@@ -31,7 +31,7 @@ openresty 容器环境
 ---
 
 ```shell
-git clone git@git.dev.tencent.com:wblucky/opDocker.git
+git clone https://github.com/wblucky/docker-openresty-lor.git
 
 cd opDocker
 
